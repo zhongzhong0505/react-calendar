@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* 暗色模式滚动条 */
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* 日历网格样式 */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: minmax(120px, 1fr);
+}
+
+.calendar-grid.day-view {
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(600px, 1fr);
+}
+
+.calendar-grid.week-view {
+  grid-auto-rows: minmax(400px, 1fr);
+}
+
+.calendar-grid.year-view {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  grid-auto-rows: auto;
+}
+
+.calendar-cell {
+  border-right: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.dark .calendar-cell {
+  border-right: 1px solid #334155;
+  border-bottom: 1px solid #334155;
+}
+
+.calendar-grid > div:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar-grid.year-view > div {
+  border: none;
+}
+
+.calendar-cell.selecting {
+  background-color: #dbeafe !important;
+  border: 2px solid #60a5fa !important;
+  box-sizing: border-box;
+}
+
+.dark .calendar-cell.selecting {
+  background-color: #1e3a8a !important;
+  border: 2px solid #6366f1 !important;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .calendar-grid {
+    grid-auto-rows: minmax(80px, 1fr);
+  }
+  
+  .calendar-grid.day-view {
+    grid-auto-rows: minmax(400px, 1fr);
+  }
+  
+  .calendar-grid.year-view {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .calendar-cell {
+    min-height: 80px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .calendar-grid.year-view {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .calendar-grid.year-view {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
