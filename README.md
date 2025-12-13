@@ -24,7 +24,7 @@ npm run dev
 
 基本页面
 
-![image](./docs/img1.jpg)
+![image](docs/img1.jpg)
 
 暗色模式
 
