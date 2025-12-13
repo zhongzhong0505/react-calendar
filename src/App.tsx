@@ -3,6 +3,7 @@ import { Sidebar } from './components/Sidebar';
 import { CalendarGrid } from './components/CalendarGrid';
 import { EventDetailModal } from './components/EventDetailModal';
 import { AddEventModal } from './components/AddEventModal';
+import { Toast, ToastType } from './components/Toast';
 import { ICSParser } from './services/parser';
 import { db } from './services/db';
 import type { CalendarEvent, ViewMode } from './types';
@@ -18,6 +19,9 @@ function App() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [selectedDateRange, setSelectedDateRange] = useState<{ start: Date; end: Date } | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState<ToastType>('success');
+  const [isToastVisible, setIsToastVisible] = useState(false);
 
   useEffect(() => {
     initializeApp();
@@ -39,6 +43,12 @@ function App() {
     }
   };
 
+  const showToast = (message: string, type: ToastType = 'success') => {
+    setToastMessage(message);
+    setToastType(type);
+    setIsToastVisible(true);
+  };
+
   const handleImport = async (file: File) => {
     const reader = new FileReader();
     reader.onload = async (e) => {
@@ -49,12 +59,12 @@ function App() {
       if (parsedEvents.length > 0) {
         try {
           const result = await db.saveEvents(parsedEvents);
-          alert(`成功导入并保存 ${result.success} 个事件`);
+          showToast(`成功导入并保存 ${result.success} 个事件`, 'success');
           setEvents([...events, ...parsedEvents]);
           setIsSidebarOpen(false);
         } catch (error) {
           console.error('保存事件失败:', error);
-          alert(`成功导入 ${parsedEvents.length} 个事件，但保存到数据库失败`);
+          showToast(`成功导入 ${parsedEvents.length} 个事件，但保存到数据库失败`, 'error');
           setEvents([...events, ...parsedEvents]);
         }
       }
@@ -145,10 +155,10 @@ function App() {
       setEvents([...events, newEvent]);
       setIsAddModalOpen(false);
       setSelectedDateRange(null);
-      alert('事件保存成功！');
+      showToast('事件添加成功！', 'success');
     } catch (error) {
       console.error('保存事件失败:', error);
-      alert('保存事件失败，请重试');
+      showToast('保存事件失败，请重试', 'error');
     }
   };
 
@@ -361,6 +371,14 @@ function App() {
         }}
         onSave={handleSaveEvent}
         selectedDateRange={selectedDateRange}
+        isDarkMode={isDarkMode}
+      />
+
+      <Toast
+        message={toastMessage}
+        type={toastType}
+        isVisible={isToastVisible}
+        onClose={() => setIsToastVisible(false)}
         isDarkMode={isDarkMode}
       />
     </div>

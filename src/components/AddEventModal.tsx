@@ -53,9 +53,11 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, o
     let end: Date;
     
     if (isAllDay) {
+      // 使用本地时区创建日期，避免时区偏移
       const [startYear, startMonth, startDay] = startDate.split('-').map(Number);
+      const [endYear, endMonth, endDay] = endDate.split('-').map(Number);
       start = new Date(startYear, startMonth - 1, startDay);
-      end = new Date(endDate);
+      end = new Date(endYear, endMonth - 1, endDay);
       end.setDate(end.getDate() + 1);
     } else {
       start = new Date(`${startDate}T${startTime}`);
