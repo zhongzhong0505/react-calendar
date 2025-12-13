@@ -53,7 +53,8 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, o
     let end: Date;
     
     if (isAllDay) {
-      start = new Date(startDate);
+      const [startYear, startMonth, startDay] = startDate.split('-').map(Number);
+      start = new Date(startYear, startMonth - 1, startDay);
       end = new Date(endDate);
       end.setDate(end.getDate() + 1);
     } else {
