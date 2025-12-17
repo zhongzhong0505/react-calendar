@@ -59,7 +59,7 @@ export const EventDetailModal: React.FC<EventDetailModalProps> = ({ event, isOpe
         <div className="px-6 pb-6 -mt-8">
           <div className={`rounded-xl shadow-lg p-5 border ${isDarkMode ? 'bg-slate-700 border-slate-600' : 'bg-white border-slate-100'}`}>
             <h3 className={`text-xl font-bold mb-1 ${isDarkMode ? 'text-slate-100' : 'text-slate-800'}`}>{event.summary || '无标题'}</h3>
-            <div className="flex items-center text-indigo-600 text-sm font-medium mb-4">
+            <div className={`flex items-center text-sm font-medium mb-4 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>
               <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
