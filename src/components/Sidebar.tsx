@@ -39,7 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed, onClose, 
           key={i}
           className={`${
             isToday
-              ? 'bg-indigo-600 text-white rounded-full w-6 h-6 mx-auto flex items-center justify-center shadow-md shadow-indigo-200'
+              ? `bg-indigo-600 text-white rounded-full w-6 h-6 mx-auto flex items-center justify-center ${isDarkMode ? 'shadow-lg shadow-indigo-500/30' : 'shadow-md shadow-indigo-200'}`
               : isDarkMode
                 ? 'text-slate-300 hover:bg-slate-700 rounded-full w-6 h-6 mx-auto flex items-center justify-center cursor-pointer transition-colors'
                 : 'text-slate-600 hover:bg-slate-100 rounded-full w-6 h-6 mx-auto flex items-center justify-center cursor-pointer transition-colors'

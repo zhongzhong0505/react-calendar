@@ -225,7 +225,9 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({
         <span
           className={`text-xs md:text-sm font-medium flex items-center justify-center mb-1 transition-all ${
             cellData.isToday 
-              ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 rounded-full w-6 h-6 md:w-8 md:h-8' 
+              ? `bg-indigo-600 text-white rounded-full w-6 h-6 md:w-8 md:h-8 ${
+                  isDarkMode ? 'shadow-lg shadow-indigo-500/30' : 'shadow-md shadow-indigo-200'
+                }` 
               : cellData.date.getDate() === 1
                 ? `w-auto px-1 md:px-2 h-6 md:h-8 rounded-lg text-[9px] md:text-xs whitespace-nowrap ${
                     isDarkMode ? 'text-slate-300 bg-slate-700' : 'text-slate-700 bg-slate-100'

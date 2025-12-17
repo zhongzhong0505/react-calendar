@@ -18,7 +18,11 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [selectedDateRange, setSelectedDateRange] = useState<{ start: Date; end: Date } | null>(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // 从 localStorage 读取暗黑模式设置，默认为 false
+    const savedMode = localStorage.getItem('darkMode');
+    return savedMode === 'true';
+  });
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState<ToastType>('success');
   const [isToastVisible, setIsToastVisible] = useState(false);
@@ -26,6 +30,11 @@ function App() {
   useEffect(() => {
     initializeApp();
   }, []);
+
+  // 监听暗黑模式变化，保存到 localStorage
+  useEffect(() => {
+    localStorage.setItem('darkMode', isDarkMode.toString());
+  }, [isDarkMode]);
 
   const initializeApp = async () => {
     try {
